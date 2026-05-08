@@ -1,6 +1,5 @@
 ---
 title: Welcome
-publish: true
 ---
 
 # 공개 페이지 테스트
