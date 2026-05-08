@@ -1,20 +1,25 @@
 #!/usr/bin/env node
-import { readdir, readFile, writeFile, rm, mkdir, stat } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { readdir, readFile, writeFile, rm, mkdir, copyFile } from "node:fs/promises";
+import { dirname, join, relative, extname } from "node:path";
 
-const VAULT = "/Users/1111903/obsidian/note";
+const PUBLISH_DIR = "/Users/1111903/obsidian/note/publish";
 const CONTENT = "/Users/1111903/obsidian/quartz/content";
 
-const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---/;
-const PUBLISH_RE = /^publish:\s*true\s*$/m;
+const ASSET_EXTS = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".pdf"]);
 
 async function* walk(dir) {
-  const entries = await readdir(dir, { withFileTypes: true });
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (e) {
+    if (e.code === "ENOENT") return;
+    throw e;
+  }
   for (const e of entries) {
     if (e.name.startsWith(".")) continue;
     const p = join(dir, e.name);
     if (e.isDirectory()) yield* walk(p);
-    else if (e.isFile() && e.name.endsWith(".md")) yield p;
+    else if (e.isFile()) yield p;
   }
 }
 
@@ -23,48 +28,45 @@ async function main() {
   await mkdir(CONTENT, { recursive: true });
   await writeFile(join(CONTENT, ".gitkeep"), "");
 
-  const published = [];
-  for await (const file of walk(VAULT)) {
-    const text = await readFile(file, "utf8");
-    const m = text.match(FRONTMATTER_RE);
-    if (!m || !PUBLISH_RE.test(m[1])) continue;
+  let mdCount = 0;
+  let assetCount = 0;
+  let hasIndex = false;
 
-    const rel = relative(VAULT, file);
+  for await (const file of walk(PUBLISH_DIR)) {
+    const ext = extname(file).toLowerCase();
+    const rel = relative(PUBLISH_DIR, file);
     const dest = join(CONTENT, rel);
     await mkdir(dirname(dest), { recursive: true });
-    await writeFile(dest, text);
-    published.push(rel);
-    console.log(`  + ${rel}`);
+
+    if (ext === ".md") {
+      const text = await readFile(file, "utf8");
+      await writeFile(dest, text);
+      mdCount++;
+      if (rel.toLowerCase() === "index.md") hasIndex = true;
+      console.log(`  + ${rel}`);
+    } else if (ASSET_EXTS.has(ext)) {
+      await copyFile(file, dest);
+      assetCount++;
+      console.log(`  + ${rel} (asset)`);
+    }
   }
 
-  const hasVaultIndex = published.some((p) => p.toLowerCase() === "index.md");
-
-  if (!hasVaultIndex) {
-    const links = published
-      .map((p) => p.replace(/\.md$/, ""))
-      .sort()
-      .map((name) => `- [[${name}]]`)
-      .join("\n");
-
+  if (!hasIndex) {
     const indexBody = `---
 title: Home
 ---
 
 # My Notes
 
-[Obsidian](https://obsidian.md) 에서 작성한 노트 중 \`publish: true\` 로 표시된 것들만 여기에 공개됩니다.
+\`note/publish/\` 폴더에 들어 있는 노트들이 여기에 공개됩니다.
 
-## 공개된 노트
-
-${links || "_(아직 공개된 노트가 없습니다)_"}
+_(아직 \`index.md\` 가 없어서 자동 생성된 홈입니다. \`note/publish/index.md\` 를 만들면 그게 우선됩니다.)_
 `;
     await writeFile(join(CONTENT, "index.md"), indexBody);
-    console.log(`Generated content/index.md with ${published.length} link(s) (Vault에 index.md 없음)`);
-  } else {
-    console.log(`Using Vault index.md as home page`);
+    console.log(`  + index.md (auto-generated fallback)`);
   }
 
-  console.log(`\nSynced ${published.length} note(s) with publish:true into content/`);
+  console.log(`\nSynced ${mdCount} markdown + ${assetCount} asset(s) from publish/`);
 }
 
 main().catch((e) => {
