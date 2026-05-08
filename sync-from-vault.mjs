@@ -37,13 +37,16 @@ async function main() {
     console.log(`  + ${rel}`);
   }
 
-  const links = published
-    .map((p) => p.replace(/\.md$/, ""))
-    .sort()
-    .map((name) => `- [[${name}]]`)
-    .join("\n");
+  const hasVaultIndex = published.some((p) => p.toLowerCase() === "index.md");
 
-  const indexBody = `---
+  if (!hasVaultIndex) {
+    const links = published
+      .map((p) => p.replace(/\.md$/, ""))
+      .sort()
+      .map((name) => `- [[${name}]]`)
+      .join("\n");
+
+    const indexBody = `---
 title: Home
 ---
 
@@ -55,10 +58,13 @@ title: Home
 
 ${links || "_(아직 공개된 노트가 없습니다)_"}
 `;
-  await writeFile(join(CONTENT, "index.md"), indexBody);
+    await writeFile(join(CONTENT, "index.md"), indexBody);
+    console.log(`Generated content/index.md with ${published.length} link(s) (Vault에 index.md 없음)`);
+  } else {
+    console.log(`Using Vault index.md as home page`);
+  }
 
   console.log(`\nSynced ${published.length} note(s) with publish:true into content/`);
-  console.log(`Generated content/index.md with ${published.length} link(s)`);
 }
 
 main().catch((e) => {
