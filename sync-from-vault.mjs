@@ -5,7 +5,8 @@ import { dirname, join, relative, extname } from "node:path";
 const PUBLISH_DIR = "/Users/1111903/obsidian/note/publish";
 const CONTENT = "/Users/1111903/obsidian/quartz/content";
 
-const ASSET_EXTS = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".pdf"]);
+const ASSET_EXTS = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".pdf",
+                            ".html", ".css", ".js"]);
 
 async function* walk(dir) {
   let entries;
