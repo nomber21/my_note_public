@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 여름성경학교 식사 메뉴 기획안</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+        background: #f5f7fa;
+        color: #2c3e50;
+        line-height: 1.6;
+        padding: 24px;
+    }
+    .container {
+        max-width: 880px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+    header {
+        background: linear-gradient(135deg, #4a90e2, #5b6fe8);
+        color: #fff;
+        padding: 32px 28px;
+    }
+    header h1 {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+    header .subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+    section {
+        padding: 24px 28px;
+        border-bottom: 1px solid #eef0f3;
+    }
+    section:last-child { border-bottom: none; }
+    h2 {
+        font-size: 18px;
+        color: #2c3e50;
+        margin-bottom: 14px;
+        padding-left: 10px;
+        border-left: 4px solid #4a90e2;
+    }
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+    }
+    .info-card {
+        background: #f8fafc;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid #e8edf3;
+    }
+    .info-card .label {
+        font-size: 12px;
+        color: #7b8794;
+        margin-bottom: 4px;
+    }
+    .info-card .value {
+        font-size: 15px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+    }
+    th, td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid #eef0f3;
+        font-size: 14px;
+    }
+    th {
+        background: #f8fafc;
+        color: #4a5568;
+        font-weight: 600;
+        font-size: 13px;
+    }
+    .excluded li {
+        background: #fef5f5;
+        border-left: 3px solid #e57373;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        list-style: none;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .excluded .biz-name {
+        font-weight: 600;
+        color: #c53030;
+    }
+    .excluded .reason {
+        color: #6b7280;
+        margin-left: 6px;
+    }
+    .vendor-card {
+        background: #f0f7ff;
+        border: 1px solid #c7defc;
+        border-radius: 8px;
+        padding: 16px 18px;
+    }
+    .vendor-card h3 {
+        font-size: 16px;
+        color: #2c5282;
+        margin-bottom: 10px;
+    }
+    .vendor-card a {
+        color: #2c5282;
+        text-decoration: none;
+        font-size: 13px;
+        word-break: break-all;
+    }
+    .vendor-card a:hover { text-decoration: underline; }
+    .menu-block { margin-top: 18px; }
+    .menu-block h4 {
+        font-size: 14px;
+        color: #2c5282;
+        margin-bottom: 10px;
+    }
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+    .menu-item {
+        background: #fff;
+        border: 1px solid #e1ecfb;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .menu-item img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        background: #f0f0f0;
+        display: block;
+    }
+    .menu-item .menu-info {
+        padding: 8px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+    }
+    .menu-item .menu-info .name {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .menu-item .menu-info .price {
+        font-weight: 700;
+        color: #4a90e2;
+        font-size: 13px;
+    }
+    .menu-desc {
+        font-size: 13px;
+        color: #4a5568;
+        background: #fff;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #e1ecfb;
+        margin-bottom: 10px;
+    }
+    .menu-desc p { margin-bottom: 6px; }
+    .menu-desc p:last-child { margin-bottom: 0; }
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    .gallery img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #e1ecfb;
+        background: #f0f0f0;
+    }
+    .ref-link {
+        display: inline-block;
+        margin-top: 4px;
+        font-size: 12px;
+        padding: 4px 10px;
+        background: #fff;
+        border: 1px solid #c7defc;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #2c5282;
+    }
+    .budget-summary {
+        background: #fffaf0;
+        border: 1px solid #f6c66c;
+        border-radius: 8px;
+        padding: 16px 18px;
+    }
+    .budget-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 14px;
+    }
+    .budget-row.total {
+        border-top: 2px solid #f6c66c;
+        margin-top: 8px;
+        padding-top: 10px;
+        font-weight: 700;
+        font-size: 15px;
+    }
+    .over-budget {
+        color: #c53030;
+        font-weight: 700;
+    }
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: #fef3c7;
+        color: #92400e;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-left: 6px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>2026 여름성경학교 식사 메뉴 기획안</h1>
+        <div class="subtitle">PCDC · 점심 도시락 업체 선정 검토</div>
+    </header>
+
+    <section>
+        <h2>일정 및 인원</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">일정</div>
+                <div class="value">2026년 7월 11일 (토) 점심</div>
+            </div>
+            <div class="info-card">
+                <div class="label">어린이 (4-5세)</div>
+                <div class="value">50명</div>
+            </div>
+            <div class="info-card">
+                <div class="label">어른 (선생님)</div>
+                <div class="value">40명</div>
+            </div>
+            <div class="info-card">
+                <div class="label">총 인원</div>
+                <div class="value">90명</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>예산</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>1인 식대</th>
+                    <th>인원</th>
+                    <th>소계</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>어린이</td>
+                    <td>5,000원</td>
+                    <td>50명</td>
+                    <td>250,000원</td>
+                </tr>
+                <tr>
+                    <td>어른 (선생님)</td>
+                    <td>9,000원</td>
+                    <td>40명</td>
+                    <td>360,000원</td>
+                </tr>
+                <tr style="background:#f8fafc; font-weight:700;">
+                    <td colspan="3">총 예산</td>
+                    <td>610,000원</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>제외된 업체</h2>
+        <ul class="excluded">
+            <li><span class="biz-name">본 도시락</span><span class="reason">— 예산 초과</span></li>
+            <li><span class="biz-name">오봉 도시락</span><span class="reason">— 어린이 메뉴 부실, 맛이 없을 것 같음</span></li>
+            <li><span class="biz-name">한솥 도시락</span><span class="reason">— 맛이 없을 것 같음</span></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>현재 접촉 업체 <span class="badge">네고중</span></h2>
+        <div class="vendor-card">
+            <h3>한끼코리아</h3>
+            <a href="https://www.hankkikorea.com/" target="_blank" rel="noopener">https://www.hankkikorea.com/</a>
+
+            <div class="menu-block">
+                <h4>어린이 메뉴 (택1)</h4>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <img src="https://postfiles.pstatic.net/MjAyNDExMDdfOTcg/MDAxNzMwOTc1NjY4MDE5.tS4Xj8XXMFmf6JE8MNueZbWLVXlYe1gDSOBxCNWmPnAg.uPSwsVGr9MKLM5UjnOcF5BHlqbDHDn4RtNORzYkR0Mgg.JPEG/IMG%EF%BC%BF20241005%EF%BC%BF232524%EF%BC%BF002.jpg?type=w966" alt="오므라이스" referrerpolicy="no-referrer" loading="lazy">
+                        <div class="menu-info"><span class="name">오므라이스</span><span class="price">7,000원</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://postfiles.pstatic.net/MjAyNDExMDhfMTQw/MDAxNzMxMDQ0NjAzNDE3.63JRFNY5JUaHrQGrXHMjlBdmDTM_MNQ0iuyD7r-8Isgg.2qRgTzbKbwpuObWL0SGd7WZogMJdguCf-15tA_tuBvsg.JPEG/SE-dcc2babb-9cf3-11ef-a048-67d123d9feb0.jpg?type=w966" alt="짜장밥" referrerpolicy="no-referrer" loading="lazy">
+                        <div class="menu-info"><span class="name">짜장밥</span><span class="price">7,000원</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://postfiles.pstatic.net/MjAyNDExMDhfOTIg/MDAxNzMxMDQ0NjE1MDUy.Bamb_IX8gdKv6tYwdxCzThuDOdHURvef1phn6hxfy7Eg.V0u7Itznf5pY_J00zgsPipaYvb-nfdg-19ZBETsiOswg.JPEG/SE-dcc4686c-9cf3-11ef-a048-af14c379c0cc.jpg?type=w966" alt="카레밥" referrerpolicy="no-referrer" loading="lazy">
+                        <div class="menu-info"><span class="name">카레밥</span><span class="price">7,000원</span></div>
+                    </div>
+                </div>
+                <div class="menu-desc">
+                    <p>야채 볶음밥 위에 계란 지단을 얹은 오므라이스, 수제 짜장과 부드러운 볶음밥이 어우러진 짜장밥, 신선한 채소가 풍부하게 들어간 수제 카레의 카레밥. 모두 숟가락으로 간편하게 먹을 수 있어 어린이 식사에 적합합니다.</p>
+                    <p style="font-size:12px; color:#7b8794;">옵션: 수제 돈까스 +2,000원 / 수제 떡갈비 +3,000원 / 과일 +2,000원</p>
+                </div>
+                <a class="ref-link" href="https://blog.naver.com/hankkikorea/223653444977" target="_blank" rel="noopener">참고 문서 (한끼코리아 간편식 도시락) →</a>
+            </div>
+
+            <div class="menu-block">
+                <h4>어른 메뉴 — 간단 한끼 도시락 <span style="color:#4a90e2;">8,500원</span></h4>
+                <div class="gallery">
+                    <img src="https://postfiles.pstatic.net/MjAyNDExMDdfMTAz/MDAxNzMwOTcyNzAyNTM1.Uk7l2QNFJfXC9dIf2L4tMvWVX-gMNO7zfZWOIzCuAPIg.vH29P6XD1JKZzK87Htvnt49UjQSftGM-CG-Vj46ffLEg.JPEG/SE-7a90af88-9ce9-11ef-a048-3d9e6df8ae80.jpg?type=w966" alt="간단 한끼 도시락 1" referrerpolicy="no-referrer" loading="lazy">
+                    <img src="https://postfiles.pstatic.net/MjAyNDExMDdfMTc3/MDAxNzMwOTcyNzAzNzAw.qaq1RZxIg7PvTBcifYjyXKGDaNAid3Eu7g9mOB5_dHkg.RB2b19QvrjCiqEBa0QSB3nw1bXgK-L8Emq4W_I2g_ysg.JPEG/SE-7a9172d9-9ce9-11ef-a048-551c6912a1c5.jpg?type=w966" alt="간단 한끼 도시락 2" referrerpolicy="no-referrer" loading="lazy">
+                    <img src="https://postfiles.pstatic.net/MjAyNDExMDdfMTYg/MDAxNzMwOTcyNzA0OTU1.d8f2h6M5QulQFLMP9c5ymU_QqwTKkIsIi6ekRhwJgD0g.3i6BXx3myE3uZFX5FWTG417jSijKG8hnEPoNWk9TwjMg.JPEG/SE-7a925d3a-9ce9-11ef-a048-51a30ed7f439.jpg?type=w966" alt="간단 한끼 도시락 3" referrerpolicy="no-referrer" loading="lazy">
+                    <img src="https://postfiles.pstatic.net/MjAyNDExMDdfODgg/MDAxNzMwOTcyNzA2NDkx.utA3aIQkx2wZjmxpllqcw_54mF8y6mYy375ekev7DKkg.NRe-SCDc9Tw1rcRTHJBIZfXCLTpbI3F51dL6s-4l4S8g.JPEG/SE-7a93479b-9ce9-11ef-a048-2f52608a3439.jpg?type=w966" alt="간단 한끼 도시락 4" referrerpolicy="no-referrer" loading="lazy">
+                </div>
+                <div class="menu-desc">
+                    <p>점심식사와 같은 가벼운 한끼가 필요할 때 추천하는 도시락. <strong>메인 메뉴 1가지 + 4가지 밑반찬 + 전 또는 부침</strong>으로 구성됩니다.</p>
+                    <p style="font-size:12px; color:#7b8794;">메인 선택지: 수제 떡갈비, 두부 스테이크, 오삼불고기, 석쇠불고기, 순살 찜닭, 수제 돈까스, 제육볶음, 오징어볶음, 낙지볶음 등</p>
+                    <p style="font-size:12px; color:#7b8794;">옵션: 국 추가 +1,000원 / 친환경 용기 변경 시 9,000원</p>
+                </div>
+                <a class="ref-link" href="https://blog.naver.com/hankkikorea/223651152978" target="_blank" rel="noopener">참고 문서 (한끼코리아 한식 도시락) →</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>예상 비용 산출</h2>
+        <div class="budget-summary">
+            <div class="budget-row">
+                <span>어린이 50명 × 7,000원</span>
+                <span>350,000원</span>
+            </div>
+            <div class="budget-row">
+                <span>어른 40명 × 8,500원</span>
+                <span>340,000원</span>
+            </div>
+            <div class="budget-row total">
+                <span>총 예상 비용</span>
+                <span>690,000원</span>
+            </div>
+            <div class="budget-row">
+                <span>책정 예산</span>
+                <span>610,000원</span>
+            </div>
+            <div class="budget-row total">
+                <span>예산 초과액</span>
+                <span class="over-budget">▲ 80,000원</span>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
