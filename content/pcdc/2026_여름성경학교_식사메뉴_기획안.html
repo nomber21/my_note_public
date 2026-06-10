@@ -5,181 +5,197 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 여름성경학교 식사 메뉴 기획안</title>
 <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    :root { color-scheme: light only; }
+    .pcdc-doc * { box-sizing: border-box; margin: 0; padding: 0; }
+    .pcdc-doc {
         font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-        background: #f5f7fa;
-        color: #2c3e50;
+        background: #f5f7fa !important;
+        color: #2c3e50 !important;
         line-height: 1.6;
         padding: 24px;
     }
-    .container {
+    .pcdc-doc h1, .pcdc-doc h2, .pcdc-doc h3, .pcdc-doc h4,
+    .pcdc-doc p, .pcdc-doc span, .pcdc-doc li, .pcdc-doc td, .pcdc-doc th,
+    .pcdc-doc div, .pcdc-doc a {
+        color: inherit;
+    }
+    .pcdc-doc .container {
         max-width: 880px;
         margin: 0 auto;
-        background: #fff;
+        background: #ffffff !important;
+        color: #2c3e50 !important;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         overflow: hidden;
     }
-    header {
-        background: linear-gradient(135deg, #4a90e2, #5b6fe8);
-        color: #fff;
+    .pcdc-doc header {
+        background: linear-gradient(135deg, #4a90e2, #5b6fe8) !important;
+        color: #ffffff !important;
         padding: 32px 28px;
     }
-    header h1 {
+    .pcdc-doc header h1 {
         font-size: 26px;
         margin-bottom: 8px;
+        color: #ffffff !important;
     }
-    header .subtitle {
+    .pcdc-doc header .subtitle {
         font-size: 14px;
         opacity: 0.9;
+        color: #ffffff !important;
     }
-    section {
+    .pcdc-doc section {
         padding: 24px 28px;
         border-bottom: 1px solid #eef0f3;
+        background: #ffffff !important;
     }
-    section:last-child { border-bottom: none; }
-    h2 {
+    .pcdc-doc section:last-child { border-bottom: none; }
+    .pcdc-doc h2 {
         font-size: 18px;
-        color: #2c3e50;
+        color: #2c3e50 !important;
         margin-bottom: 14px;
         padding-left: 10px;
         border-left: 4px solid #4a90e2;
     }
-    .info-grid {
+    .pcdc-doc .info-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 12px;
     }
-    .info-card {
-        background: #f8fafc;
+    .pcdc-doc .info-card {
+        background: #f8fafc !important;
         padding: 14px 16px;
         border-radius: 8px;
         border: 1px solid #e8edf3;
     }
-    .info-card .label {
+    .pcdc-doc .info-card .label {
         font-size: 12px;
-        color: #7b8794;
+        color: #7b8794 !important;
         margin-bottom: 4px;
     }
-    .info-card .value {
+    .pcdc-doc .info-card .value {
         font-size: 15px;
         font-weight: 600;
-        color: #2c3e50;
+        color: #2c3e50 !important;
     }
-    table {
+    .pcdc-doc table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 8px;
+        background: #ffffff !important;
+        color: #2c3e50 !important;
     }
-    th, td {
+    .pcdc-doc th, .pcdc-doc td {
         text-align: left;
         padding: 10px 12px;
         border-bottom: 1px solid #eef0f3;
         font-size: 14px;
+        color: #2c3e50 !important;
     }
-    th {
-        background: #f8fafc;
-        color: #4a5568;
+    .pcdc-doc th {
+        background: #f8fafc !important;
+        color: #4a5568 !important;
         font-weight: 600;
         font-size: 13px;
     }
-    .excluded li {
-        background: #fef5f5;
+    .pcdc-doc .excluded li {
+        background: #fef5f5 !important;
         border-left: 3px solid #e57373;
         padding: 10px 14px;
         margin-bottom: 8px;
         list-style: none;
         border-radius: 4px;
         font-size: 14px;
+        color: #2c3e50 !important;
     }
-    .excluded .biz-name {
+    .pcdc-doc .excluded .biz-name {
         font-weight: 600;
-        color: #c53030;
+        color: #c53030 !important;
     }
-    .excluded .reason {
-        color: #6b7280;
+    .pcdc-doc .excluded .reason {
+        color: #6b7280 !important;
         margin-left: 6px;
     }
-    .vendor-card {
-        background: #f0f7ff;
+    .pcdc-doc .vendor-card {
+        background: #f0f7ff !important;
         border: 1px solid #c7defc;
         border-radius: 8px;
         padding: 16px 18px;
+        color: #2c3e50 !important;
     }
-    .vendor-card h3 {
+    .pcdc-doc .vendor-card h3 {
         font-size: 16px;
-        color: #2c5282;
+        color: #2c5282 !important;
         margin-bottom: 10px;
     }
-    .vendor-card a {
-        color: #2c5282;
+    .pcdc-doc .vendor-card a {
+        color: #2c5282 !important;
         text-decoration: none;
         font-size: 13px;
         word-break: break-all;
     }
-    .vendor-card a:hover { text-decoration: underline; }
-    .menu-block { margin-top: 18px; }
-    .menu-block h4 {
+    .pcdc-doc .vendor-card a:hover { text-decoration: underline; }
+    .pcdc-doc .menu-block { margin-top: 18px; }
+    .pcdc-doc .menu-block h4 {
         font-size: 14px;
-        color: #2c5282;
+        color: #2c5282 !important;
         margin-bottom: 10px;
     }
-    .menu-grid {
+    .pcdc-doc .menu-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 12px;
         margin-bottom: 10px;
     }
-    .menu-item {
-        background: #fff;
+    .pcdc-doc .menu-item {
+        background: #ffffff !important;
         border: 1px solid #e1ecfb;
         border-radius: 8px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        color: #2c3e50 !important;
     }
-    .menu-item img {
+    .pcdc-doc .menu-item img {
         width: 100%;
         height: 140px;
         object-fit: cover;
         background: #f0f0f0;
         display: block;
     }
-    .menu-item .menu-info {
+    .pcdc-doc .menu-item .menu-info {
         padding: 8px 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 13px;
     }
-    .menu-item .menu-info .name {
+    .pcdc-doc .menu-item .menu-info .name {
         font-weight: 600;
-        color: #2c3e50;
+        color: #2c3e50 !important;
     }
-    .menu-item .menu-info .price {
+    .pcdc-doc .menu-item .menu-info .price {
         font-weight: 700;
-        color: #4a90e2;
+        color: #4a90e2 !important;
         font-size: 13px;
     }
-    .menu-desc {
+    .pcdc-doc .menu-desc {
         font-size: 13px;
-        color: #4a5568;
-        background: #fff;
+        color: #4a5568 !important;
+        background: #ffffff !important;
         padding: 10px 12px;
         border-radius: 6px;
         border: 1px solid #e1ecfb;
         margin-bottom: 10px;
     }
-    .menu-desc p { margin-bottom: 6px; }
-    .menu-desc p:last-child { margin-bottom: 0; }
-    .gallery {
+    .pcdc-doc .menu-desc p { margin-bottom: 6px; color: #4a5568 !important; }
+    .pcdc-doc .menu-desc p:last-child { margin-bottom: 0; }
+    .pcdc-doc .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 8px;
         margin-bottom: 10px;
     }
-    .gallery img {
+    .pcdc-doc .gallery img {
         width: 100%;
         height: 130px;
         object-fit: cover;
@@ -187,45 +203,48 @@
         border: 1px solid #e1ecfb;
         background: #f0f0f0;
     }
-    .ref-link {
+    .pcdc-doc .ref-link {
         display: inline-block;
         margin-top: 4px;
         font-size: 12px;
         padding: 4px 10px;
-        background: #fff;
+        background: #ffffff !important;
         border: 1px solid #c7defc;
         border-radius: 4px;
         text-decoration: none;
-        color: #2c5282;
+        color: #2c5282 !important;
     }
-    .budget-summary {
-        background: #fffaf0;
+    .pcdc-doc .budget-summary {
+        background: #fffaf0 !important;
         border: 1px solid #f6c66c;
         border-radius: 8px;
         padding: 16px 18px;
+        color: #2c3e50 !important;
     }
-    .budget-row {
+    .pcdc-doc .budget-row {
         display: flex;
         justify-content: space-between;
         padding: 6px 0;
         font-size: 14px;
+        color: #2c3e50 !important;
     }
-    .budget-row.total {
+    .pcdc-doc .budget-row span { color: #2c3e50 !important; }
+    .pcdc-doc .budget-row.total {
         border-top: 2px solid #f6c66c;
         margin-top: 8px;
         padding-top: 10px;
         font-weight: 700;
         font-size: 15px;
     }
-    .over-budget {
-        color: #c53030;
+    .pcdc-doc .over-budget {
+        color: #c53030 !important;
         font-weight: 700;
     }
-    .badge {
+    .pcdc-doc .badge {
         display: inline-block;
         padding: 2px 8px;
-        background: #fef3c7;
-        color: #92400e;
+        background: #fef3c7 !important;
+        color: #92400e !important;
         border-radius: 10px;
         font-size: 11px;
         font-weight: 600;
@@ -234,6 +253,7 @@
 </style>
 </head>
 <body>
+<div class="pcdc-doc">
 <div class="container">
     <header>
         <h1>2026 여름성경학교 식사 메뉴 기획안</h1>
@@ -375,6 +395,7 @@
             </div>
         </div>
     </section>
+</div>
 </div>
 </body>
 </html>
