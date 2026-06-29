@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>꼬마 모세 모여라! — ep01 (픽사 3D)</title>
+<style>
+  :root {
+    --max-w: 720px;
+    --panel-gap: 4px;
+    --page-bg: #1a1a1f;
+    --strip-bg: #0e0e10;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    color: #f5f5f7;
+    -webkit-text-size-adjust: 100%;
+  }
+  header.viewer-head {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,14,16,.92);
+    color: #f5f5f7; text-align: center;
+    padding: 10px 12px; font-size: 14px; letter-spacing: .02em;
+    backdrop-filter: blur(6px);
+  }
+  header.viewer-head b { font-weight: 700; }
+  .strip {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    background: var(--strip-bg);
+    display: flex; flex-direction: column;
+    gap: var(--panel-gap);
+  }
+  .panel { position: relative; line-height: 0; }
+  .panel.break { margin-top: 20px; }
+  .panel img {
+    width: 100%; height: auto; display: block;
+    background: #1c1c22;
+  }
+  .panel .missing {
+    line-height: 1.5; color: #b00020; background: #fff3f3;
+    border: 2px dashed #b00020; text-align: center;
+    padding: 48px 12px; font-size: 14px;
+  }
+  footer.viewer-foot {
+    color: #9a9aa2; text-align: center; padding: 28px 12px 60px;
+    font-size: 13px; max-width: var(--max-w); margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+<header class="viewer-head"><b id="m-title">꼬마 모세 모여라!</b> · <span id="m-ep">ep01 — 갈대 바구니 속 아기 (픽사 3D)</span></header>
+<main class="strip" id="strip" aria-label="webtoon vertical viewer"></main>
+<footer class="viewer-foot" id="foot"></footer>
+
+<script>
+const META = { title: "꼬마 모세 모여라!", episode: "ep01 — 갈대 바구니 속 아기 (픽사 3D)" };
+const PANELS = [
+  { src: "./panels/panel_01.png", alt: "panel 01 — 표지" },
+  { src: "./panels/panel_02.png", alt: "panel 02 — 도입 풍경", break: true },
+  { src: "./panels/panel_03.png", alt: "panel 03 — 왕좌의 바로", break: true },
+  { src: "./panels/panel_04.png", alt: "panel 04 — 신하들 복명" },
+  { src: "./panels/panel_05.png", alt: "panel 05 — 바로의 화난 얼굴" },
+  { src: "./panels/panel_06.png", alt: "panel 06 — 마을 골목", break: true },
+  { src: "./panels/panel_07.png", alt: "panel 07 — 엄마 클로즈업", break: true },
+  { src: "./panels/panel_08.png", alt: "panel 08 — 엄마와 미리암" },
+  { src: "./panels/panel_09.png", alt: "panel 09 — 엄마의 미소" },
+  { src: "./panels/panel_10.png", alt: "panel 10 — 바구니 짜기" },
+  { src: "./panels/panel_11.png", alt: "panel 11 — 강가로", break: true },
+  { src: "./panels/panel_12.png", alt: "panel 12 — 아기를 바구니에 눕힘", break: true },
+  { src: "./panels/panel_13.png", alt: "panel 13 — 강물에 띄움" },
+  { src: "./panels/panel_14.png", alt: "panel 14 — 잠든 아기" },
+  { src: "./panels/panel_15.png", alt: "panel 15 — 하늘에서 광선", break: true },
+  { src: "./panels/panel_16.png", alt: "panel 16 — 광선과 비둘기" },
+  { src: "./panels/panel_17.png", alt: "panel 17 — 갈대 사이 미리암" },
+  { src: "./panels/panel_18.png", alt: "panel 18 — 평온한 강" },
+  { src: "./panels/panel_19.png", alt: "panel 19 — 아기의 미소" },
+  { src: "./panels/panel_20.png", alt: "panel 20 — 광선 마무리" },
+  { src: "./panels/panel_21.png", alt: "panel 21 — 성장 몽타주", break: true },
+  { src: "./panels/panel_22.png", alt: "panel 22 — 클리프행어", break: true }
+];
+
+function el(tag, cls, txt){ const e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+function renderPanel(p, i){
+  const panel = el("div", "panel" + (p.break ? " break" : ""));
+  const img = new Image();
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.alt = p.alt || ("panel " + String(i+1).padStart(2,"0"));
+  img.src = p.src;
+  img.onerror = () => { const ph = el("div", "missing", "⚠ 패널 이미지 누락/손상: " + p.src); img.replaceWith(ph); };
+  panel.appendChild(img);
+  return panel;
+}
+(function init(){
+  document.title = META.title + " — " + META.episode;
+  document.getElementById("m-title").textContent = META.title;
+  document.getElementById("m-ep").textContent = META.episode;
+  const strip = document.getElementById("strip");
+  PANELS.forEach((p,i) => strip.appendChild(renderPanel(p,i)));
+  document.getElementById("foot").textContent = "총 " + PANELS.length + " 패널 · 끝까지 스크롤하세요";
+})();
+</script>
+</body>
+</html>

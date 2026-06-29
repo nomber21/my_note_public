@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>꼬마 모세 모여라! — 전 7화 연속 (세트 B 픽사 3D)</title>
+<style>
+  :root {
+    --max-w: 720px;
+    --panel-gap: 4px;
+    --page-bg: #1a1410;
+    --strip-bg: #0e0e10;
+    --accent: #f2c75c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    color: #f7e9d4;
+    -webkit-text-size-adjust: 100%;
+  }
+  header.viewer-head {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,14,16,.92);
+    color: #f7e9d4; text-align: center;
+    padding: 12px 12px; font-size: 14px; letter-spacing: .02em;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(242,199,92,.25);
+  }
+  header.viewer-head b { font-weight: 800; color: var(--accent); }
+  header.viewer-head .progress { opacity: .7; font-size: 12px; margin-top: 2px; }
+  .strip {
+    max-width: var(--max-w); margin: 0 auto;
+    background: var(--strip-bg);
+    display: flex; flex-direction: column; gap: var(--panel-gap);
+  }
+  .panel { position: relative; line-height: 0; }
+  .panel.break { margin-top: 20px; }
+  .panel img {
+    width: 100%; height: auto; display: block; background: #1c1c22;
+  }
+  .panel .missing {
+    line-height: 1.5; color: #b00020; background: #fff3f3;
+    border: 2px dashed #b00020; text-align: center;
+    padding: 48px 12px; font-size: 14px;
+  }
+  /* 회차 구분 마커 */
+  .ep-marker {
+    max-width: var(--max-w); margin: 48px auto 32px;
+    padding: 32px 24px; text-align: center;
+    border-top: 1px solid rgba(242,199,92,.22);
+    border-bottom: 1px solid rgba(242,199,92,.22);
+    background: linear-gradient(180deg, rgba(242,199,92,.05) 0%, rgba(242,199,92,0) 100%);
+  }
+  .ep-marker .num {
+    display: inline-block; font-size: 12px; letter-spacing: .12em;
+    color: var(--accent); font-weight: 800; margin-bottom: 6px;
+  }
+  .ep-marker .title { font-size: 22px; color: #f7e9d4; margin: 0; }
+  .ep-marker .sub  { font-size: 13px; color: #c9b896; margin: 6px 0 0; }
+  footer.viewer-foot {
+    color: #c9b896; text-align: center; padding: 48px 12px 60px;
+    font-size: 13px; max-width: var(--max-w); margin: 0 auto;
+  }
+  .slogan {
+    max-width: var(--max-w); margin: 0 auto; padding: 24px 12px 8px;
+    text-align: center; color: var(--accent); font-weight: 800;
+    font-size: 18px; letter-spacing: -.005em;
+  }
+  /* 회차 네비 (하단 고정) */
+  .epnav {
+    position: fixed; right: 16px; bottom: 16px; z-index: 40;
+    display: flex; flex-direction: column; gap: 6px;
+    background: rgba(14,14,16,.85);
+    border: 1px solid rgba(242,199,92,.3);
+    border-radius: 12px; padding: 8px;
+    backdrop-filter: blur(6px);
+  }
+  .epnav a {
+    display: block; width: 38px; height: 38px;
+    line-height: 38px; text-align: center;
+    border-radius: 8px;
+    background: rgba(242,199,92,.12); color: var(--accent);
+    text-decoration: none; font-size: 12px; font-weight: 700;
+    border: 1px solid rgba(242,199,92,.2);
+  }
+  .epnav a:hover { background: rgba(242,199,92,.28); }
+  .epnav a.top { background: rgba(255,255,255,.06); color: #f7e9d4; }
+  @media (max-width: 480px) {
+    .epnav { right: 8px; bottom: 8px; padding: 6px; gap: 4px; }
+    .epnav a { width: 32px; height: 32px; line-height: 32px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<header class="viewer-head">
+  <b>꼬마 모세 모여라!</b> · 전 7화 연속 <span style="opacity:.7">· 세트 B 픽사 3D</span>
+  <div class="progress" id="prog">패널 로딩 준비 중…</div>
+</header>
+
+<nav class="epnav" aria-label="회차 바로가기">
+  <a class="top" href="#top">▲</a>
+  <a href="#ep01">1</a>
+  <a href="#ep02">2</a>
+  <a href="#ep03">3</a>
+  <a href="#ep04">4</a>
+  <a href="#ep05">5</a>
+  <a href="#ep06">6</a>
+  <a href="#ep07">7</a>
+</nav>
+
+<main class="strip" id="strip" aria-label="webtoon vertical viewer">
+  <a id="top"></a>
+</main>
+
+<div class="slogan">하나님과 함께라면 어디든 갈 수 있어요!</div>
+
+<footer class="viewer-foot" id="foot">
+  꼬마 모세 모여라! · 2026 여름성경학교 · 유아부 · 세트 B (픽사풍 3D 카툰) · 7화 시리즈
+</footer>
+
+<script>
+const EPISODES = [
+  {
+    id: "ep01", num: "EP 01", title: "갈대 바구니 속 아기",
+    sub: "바로의 명령 · 엄마의 슬픔 · 미리암의 믿음 · 하나님의 약속",
+    dir: "./ep01/panels", count: 22
+  },
+  {
+    id: "ep02", num: "EP 02", title: "자라난 모세, 떠나는 모세",
+    sub: "노역의 현장 · 막아섬 · 광야로 도망",
+    dir: "./ep02/panels", count: 22, skip: [17]
+  },
+  {
+    id: "ep03", num: "EP 03", title: "불타는 떨기나무",
+    sub: "양치기 모세 · 떨기나무 · \"네! 순종할게요!\"",
+    dir: "./ep03/panels", count: 22
+  },
+  {
+    id: "ep04", num: "EP 04", title: "바로와 재앙",
+    sub: "선포 · 거절×3 · 재앙 · 유월절 · \"가거라!\"",
+    dir: "./ep04/panels", count: 24
+  },
+  {
+    id: "ep05", num: "EP 05", title: "구름기둥과 불기둥",
+    sub: "광야 출발 · 낮엔 구름기둥 · 밤엔 불기둥",
+    dir: "./ep05/panels", count: 22
+  },
+  {
+    id: "ep06", num: "EP 06", title: "갈라진 바다",
+    sub: "추격 · 지팡이 · 홍해 갈라짐 · 건너감",
+    dir: "./ep06/panels", count: 22
+  },
+  {
+    id: "ep07", num: "EP 07 · 피날레", title: "만나와 약속의 땅",
+    sub: "만나·메추라기 · 약속의 땅 도착 · \"어디든 갈 수 있어요!\"",
+    dir: "./ep07/panels", count: 22
+  }
+];
+
+function el(tag, cls, txt){ const e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+function pad2(n){ return String(n).padStart(2,"0"); }
+
+function renderMarker(ep){
+  const m = el("section", "ep-marker");
+  m.id = ep.id;
+  m.appendChild(el("div", "num", ep.num));
+  m.appendChild(el("h2", "title", ep.title));
+  m.appendChild(el("p", "sub", ep.sub));
+  return m;
+}
+
+function renderPanel(src, alt){
+  const panel = el("div", "panel");
+  const img = new Image();
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.alt = alt;
+  img.src = src;
+  img.onerror = () => {
+    const ph = el("div", "missing", "⚠ 패널 이미지 누락/손상: " + src);
+    img.replaceWith(ph);
+  };
+  panel.appendChild(img);
+  return panel;
+}
+
+(function init(){
+  const strip = document.getElementById("strip");
+  let totalPanels = 0;
+  EPISODES.forEach(ep => {
+    strip.appendChild(renderMarker(ep));
+    const skip = new Set(ep.skip || []);
+    for (let i = 1; i <= ep.count; i++){
+      if (skip.has(i)) continue;
+      const src = `${ep.dir}/panel_${pad2(i)}.png`;
+      strip.appendChild(renderPanel(src, `${ep.id} panel ${pad2(i)}`));
+      totalPanels++;
+    }
+  });
+  document.getElementById("prog").textContent =
+    `총 ${EPISODES.length}화 · ${totalPanels} 패널 · 끝까지 스크롤하세요`;
+})();
+</script>
+</body>
+</html>
